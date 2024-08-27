@@ -20,7 +20,7 @@ function getLiteralMonsterClass(classId) {
 }
 
 async function monsters(req, res) {
-  const dbResponse = await database.query("SELECT * FROM monsters;");
+  const dbResponse = await database.query("SELECT * FROM monsters ORDER BY name;");
 
   const large = [];
   const deviant = [];

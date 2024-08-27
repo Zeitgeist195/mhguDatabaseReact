@@ -1,4 +1,5 @@
 import database from "infra/database";
+import monsterHelpers from "helpers/monsterHelpers.js";
 
 async function getWeaknesses(monsterId) {
   const weakenessesObject = {};
@@ -175,7 +176,7 @@ async function getRewards(monsterId) {
   return rewards;
 }
 
-async function getMonsterQuests(monsterId) {
+async function getQuestsToMonster(monsterId) {
   let query = "SELECT ";
   query += "a.*, b.name, b.stars, b.rank, b.hub ";
   query += "FROM monster_to_quest ";
@@ -183,14 +184,14 @@ async function getMonsterQuests(monsterId) {
   query += "WHERE a.monster_id = $1 GROUP BY (b.hub, a.quest_id, b.stars, b.rank, b.name, a._id) ";
   query += "ORDER BY a.quest_id;";
 
-  const mtqDb = await database.query({
+  const qtmDb = await database.query({
     text: query,
     values: [monsterId],
   });
 
   const quests = {};
 
-  for (const quest of mtqDb.rows) {
+  for (const quest of qtmDb.rows) {
     if (!quests.hasOwnProperty(quest.hub)) {
       quests[quest.hub] = {};
     }
@@ -206,22 +207,6 @@ async function getMonsterQuests(monsterId) {
   return quests;
 }
 
-function getMonsterClass(classId) {
-  let literalClass = "";
-  switch (classId) {
-    default:
-    case "0":
-      literalClass = "Large";
-      break;
-    case "1":
-      literalClass = "Small";
-      break;
-    case "2":
-      literalClass = "Deviant";
-      break;
-  }
-}
-
 export default async function monster(req, res) {
   const { id } = req.query;
 
@@ -232,7 +217,7 @@ export default async function monster(req, res) {
 
   const base = {
     id: id,
-    class: getMonsterClass(id),
+    class: monsterHelpers.getMonsterClass(id),
     name: monsterBase.rows[0].name,
     iconName: monsterBase.rows[0].icon_name,
     sortName: monsterBase.rows[0].sort_name,
@@ -248,6 +233,6 @@ export default async function monster(req, res) {
     },
     damage: await getDamage(id),
     huntingRewards: await getRewards(id),
-    quests: await getMonsterQuests(id),
+    quests: await getQuestsToMonster(id),
   });
 }

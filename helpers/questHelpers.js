@@ -40,7 +40,7 @@ function getLiteralQuestGoal(goalId, questId) {
   return goalName;
 }
 
-export function getQuestObject(quest) {
+function getQuestListQuestObject(quest) {
   const questObject = {
     _id: quest._id,
     hub: quest.hub,
@@ -57,3 +57,7 @@ export function getQuestObject(quest) {
 
   return questObject;
 }
+
+exports.getQuestListQuestObject = getQuestListQuestObject;
+exports.getLiteralQuestType = getLiteralQuestType;
+exports.getLiteralQuestGoal = getLiteralQuestGoal;

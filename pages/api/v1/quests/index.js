@@ -1,5 +1,5 @@
 import database from "infra/database.js";
-import questHelpers from "helpers/questHelpers";
+import questHelpers from "helpers/questHelpers.js";
 
 async function quests(req, res) {
   const villageQuestsDb = await database.query({
@@ -22,10 +22,18 @@ async function quests(req, res) {
     values: ["Permit"],
   });
 
-  const villageQuests = villageQuestsDb.rows.map((quest) => questHelpers.getQuestObject(quest));
-  const guildQuests = guildQuestsDb.rows.map((quest) => questHelpers.getQuestObject(quest));
-  const eventQuests = eventQuestsDb.rows.map((quest) => questHelpers.getQuestObject(quest));
-  const permitQuests = permitQuestsDb.rows.map((quest) => questHelpers.getQuestObject(quest));
+  const villageQuests = villageQuestsDb.rows.map((quest) =>
+    questHelpers.getQuestListQuestObject(quest),
+  );
+  const guildQuests = guildQuestsDb.rows.map((quest) =>
+    questHelpers.getQuestListQuestObject(quest),
+  );
+  const eventQuests = eventQuestsDb.rows.map((quest) =>
+    questHelpers.getQuestListQuestObject(quest),
+  );
+  const permitQuests = permitQuestsDb.rows.map((quest) =>
+    questHelpers.getQuestListQuestObject(quest),
+  );
 
   res.status(200).json({
     quests: {
