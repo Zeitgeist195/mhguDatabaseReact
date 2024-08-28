@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Typography } from "@mui/material";
 import MonsterListElement from "components/MonsterListElement";
 
-function App() {
+function HomePage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

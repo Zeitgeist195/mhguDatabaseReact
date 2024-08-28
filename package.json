@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && next dev",
+    "dev:no-docker": "next dev",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down",
@@ -16,6 +17,9 @@
   "license": "MIT",
   "description": "A new Monster Hunter Generations Ultimate Database, based on Gathering Hall Studios' MHGU Database Android App",
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.0",
     "csv-parse": "^5.5.6",
     "dotenv": "^16.4.4",
     "next": "^13.1.6",
