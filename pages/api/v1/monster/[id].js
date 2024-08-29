@@ -2,13 +2,13 @@ import database from "infra/database";
 import monsterHelpers from "helpers/monsterHelpers.js";
 
 async function getWeaknesses(monsterId) {
-  const weakenessesObject = {};
+  const weaknessesObject = {};
   const weaknessesDb = await database.query({
     text: "SELECT * FROM monster_weakness WHERE monster_id = $1;",
     values: [monsterId],
   });
 
-  const weakenessesDefinition = [
+  const weaknessesDefinition = [
     "fire",
     "water",
     "thunder",
@@ -30,24 +30,24 @@ async function getWeaknesses(monsterId) {
 
   weaknessesDb.rows.forEach(
     (element) =>
-      (weakenessesObject[element.state] = getStatesObject(
+      (weaknessesObject[element.state] = getStatesObject(
         element,
-        weakenessesDefinition,
+        weaknessesDefinition,
         itemsDefinition,
       )),
   );
 
-  return weakenessesObject;
+  return weaknessesObject;
 }
 
-function getStatesObject(state, weakenessesDefinition, itemsDefinition) {
-  const weakenesses = {};
+function getStatesObject(state, weaknessesDefinition, itemsDefinition) {
+  const weaknesses = {};
   const items = [];
 
   for (var prop in state) {
     if (Object.prototype.hasOwnProperty.call(state, prop)) {
-      if (weakenessesDefinition.includes(prop) && state[prop] > 3) {
-        weakenesses[prop] = state[prop];
+      if (weaknessesDefinition.includes(prop) && state[prop] > 3) {
+        weaknesses[prop] = state[prop];
       } else if (itemsDefinition.includes(prop) && state[prop] > 0) {
         items.push(prop);
       }
@@ -55,7 +55,7 @@ function getStatesObject(state, weakenessesDefinition, itemsDefinition) {
   }
 
   const stateObject = {
-    weakenesses: weakenesses,
+    weaknesses: weaknesses,
     items: items,
   };
 

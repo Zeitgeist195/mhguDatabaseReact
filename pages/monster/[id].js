@@ -15,7 +15,7 @@ const ShowMonster = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/monsters/${id}`);
+        const response = await fetch(`/api/v1/monster/${id}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

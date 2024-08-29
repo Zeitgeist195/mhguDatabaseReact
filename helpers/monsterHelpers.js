@@ -14,4 +14,24 @@ function getMonsterClass(classId) {
   }
 }
 
+function getClassIdFromName(className) {
+  let classId;
+
+  switch (className) {
+    default:
+    case "large":
+      classId = "0";
+      break;
+    case "small":
+      classId = "1";
+      break;
+    case "deviant":
+      classId = "2";
+      break;
+  }
+
+  return classId;
+}
+
 exports.getMonsterClass = getMonsterClass;
+exports.getClassIdFromName = getClassIdFromName;
