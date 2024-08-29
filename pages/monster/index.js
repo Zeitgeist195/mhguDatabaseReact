@@ -29,7 +29,7 @@ function HomePage() {
   if (error) return <p>Error: {error.message}</p>;
 
   const monsters = data.monsters.Large.map((monster) => (
-    <MonsterListElement iconName={monster.icon_name} monsterName={monster.name} />
+    <MonsterListElement iconName={monster.icon_name} monsterName={monster.name} id={monster._id} />
   ));
 
   return (
