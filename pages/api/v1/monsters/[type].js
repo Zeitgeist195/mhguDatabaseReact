@@ -2,7 +2,11 @@ import database from "infra/database.js";
 import monsterHelpers from "helpers/monsterHelpers.js";
 
 async function monsters(req, res) {
-  const dbResponse = await database.query("SELECT * FROM monsters ORDER BY name;");
+  const { type } = req.query;
+  const dbResponse = await database.query({
+    text: "SELECT * FROM monsters WHERE class = $1 ORDER BY name;",
+    values: [monsterHelpers.getClassIdFromName(type)],
+  });
 
   const monsters = [];
 

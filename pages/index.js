@@ -1,43 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Container, Typography } from "@mui/material";
-import MonsterListElement from "components/MonsterListElement";
+import React from "react";
+import Head from "next/head";
+import { Container, createTheme, ThemeProvider } from "@mui/material";
+import App from "./app";
 
-function App() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/v1/monsters")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  const monsters = data.monsters.Large.map((monster) => (
-    <MonsterListElement iconName={monster.icon_name} monsterName={monster.name} />
-  ));
+function Home() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#013e87",
+      },
+      secondary: {
+        main: "#2e74c9",
+      },
+    },
+  });
 
   return (
-    <Container>
-      <Typography variant="h1">Monster List</Typography>
-      {monsters}
-    </Container>
+    <>
+      <Head>
+        <title>Monster Hunter Generations Ultimate Database</title>
+        <meta name="description" content="MHGU Database" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className="">
+        <React.StrictMode>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </React.StrictMode>
+      </main>
+    </>
   );
 }
 
-export default App;
+export default Home;
