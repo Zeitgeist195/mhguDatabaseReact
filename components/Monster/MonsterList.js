@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import MonsterListElement from "./MonsterListElement";
+import MonsterGridElement from "./MonsterGridElement";
+import Grid from "@mui/material/Grid2";
 
 // import { Container } from './styles';
 
@@ -31,10 +32,16 @@ function MonsterList({ list }) {
   if (error) return <p>Error: {error.message}</p>;
 
   const monsters = data.monsters.map((monster) => (
-    <MonsterListElement iconName={monster.icon_name} monsterName={monster.name} id={monster._id} />
+    <Grid item xs={12} sm={6} md={3}>
+      <MonsterGridElement
+        iconName={monster.icon_name}
+        monsterName={monster.name}
+        id={monster._id}
+      />
+    </Grid>
   ));
 
-  return <Container>{monsters}</Container>;
+  return <Grid container>{monsters}</Grid>;
 }
 
 export default MonsterList;
