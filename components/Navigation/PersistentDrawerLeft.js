@@ -13,11 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import DrawerLineItem from "./DrawerLineItem";
 
 const drawerWidth = 240;
 
@@ -130,25 +126,42 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Monsters", "Quests", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem key={"monsters"} disablePadding>
+            <DrawerLineItem iconName={"book"} text={"Monsters"} action={"monsters"} />
+          </ListItem>
+          <ListItem key={"weapons"} disablePadding>
+            <DrawerLineItem iconName={"sword_and_shield"} text={"Weapons"} action={"weapons"} />
+          </ListItem>
+          <ListItem key={"armor_sets"} disablePadding>
+            <DrawerLineItem iconName={"armor_body"} text={"Armor Sets"} action={"armor_sets"} />
+          </ListItem>
+          <ListItem key={"quests"} disablePadding>
+            <DrawerLineItem iconName={"quest"} text={"Quests"} action={"quests"} />
+          </ListItem>
+          <ListItem key={"items"} disablePadding>
+            <DrawerLineItem iconName={"ore"} text={"Items"} action={"items"} />
+          </ListItem>
+          <ListItem key={"palicos"} disablePadding>
+            <DrawerLineItem iconName={"cutting"} text={"Palicos"} action={"palicos"} />
+          </ListItem>
+          <ListItem key={"combining"} disablePadding>
+            <DrawerLineItem iconName={"liquid"} text={"combining"} action={"combining"} />
+          </ListItem>
+          <ListItem key={"locations"} disablePadding>
+            <DrawerLineItem iconName={"map_icon"} text={"Locations"} action={"locations"} />
+          </ListItem>
+          <ListItem key={"decorations"} disablePadding>
+            <DrawerLineItem iconName={"jewel"} text={"Decorations"} action={"decorations"} />
+          </ListItem>
+          <ListItem key={"skills"} disablePadding>
+            <DrawerLineItem iconName={"monster_jewel"} text={"Skills"} action={"skills"} />
+          </ListItem>
+          <Divider />
         </List>
-        <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem key={"about"} disablePadding>
+            <DrawerLineItem iconName={"quest_mark"} text={"About"} action={"about"} />
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}></Main>
