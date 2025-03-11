@@ -1,5 +1,6 @@
 import database from "infra/database";
 import monsterHelpers from "helpers/monsterHelpers.js";
+import apiHelpers from "helpers/apiHelpers.js";
 
 async function getWeaknesses(monsterId) {
   const weaknessesObject = {};
@@ -76,32 +77,6 @@ async function getAilments(monsterId) {
   }
 
   return ailments;
-}
-
-async function getHabitats(monsterId) {
-  let query = "SELECT ";
-  query += "a.*, b.name, b.map ";
-  query += "FROM monster_habitat ";
-  query += "AS a INNER JOIN locations AS b ON a.location_id = b._id ";
-  query += "WHERE a.monster_id = $1 GROUP BY (a._id, b.name, b.map, b._id) ";
-  query += "ORDER BY b._id;";
-  const habitats = {};
-  const habitatsDb = await database.query({
-    text: query,
-    values: [monsterId],
-  });
-
-  for (const habitat of habitatsDb.rows) {
-    habitats[habitat._id] = {
-      locationName: habitat.name,
-      locationMap: habitat.map,
-      startArea: habitat.start_area,
-      moveArea: habitat.move_area,
-      restArea: habitat.rest_area === "NaN" ? "0" : habitat.rest_area.toString().replace(".0", ""),
-    };
-  }
-
-  return habitats;
 }
 
 async function getDamage(monsterId) {
@@ -223,13 +198,15 @@ export default async function monster(req, res) {
     sortName: monsterBase.rows[0].sort_name,
     baseHp: monsterBase.rows[0].base_hp,
   };
+  
+  const habitats = await apiHelpers.getHabitats(id);
 
   res.status(200).json({
     summary: {
       base: base,
       states: await getWeaknesses(id),
       ailments: await getAilments(id),
-      habitats: await getHabitats(id),
+      habitats: habitats,
     },
     damage: await getDamage(id),
     huntingRewards: await getRewards(id),
