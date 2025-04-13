@@ -1,6 +1,6 @@
 import database from "infra/database";
 import monsterHelpers from "helpers/monsterHelpers.js";
-import apiHelpers from "helpers/apiHelpers.js";
+const apiHelpers = require("helpers/apiHelpers.js");
 
 async function getWeaknesses(monsterId) {
   const weaknessesObject = {};
@@ -198,15 +198,13 @@ export default async function monster(req, res) {
     sortName: monsterBase.rows[0].sort_name,
     baseHp: monsterBase.rows[0].base_hp,
   };
-  
-  const habitats = await apiHelpers.getHabitats(id);
 
   res.status(200).json({
     summary: {
       base: base,
       states: await getWeaknesses(id),
       ailments: await getAilments(id),
-      habitats: habitats,
+      habitats: await apiHelpers.getHabitats(id),
     },
     damage: await getDamage(id),
     huntingRewards: await getRewards(id),

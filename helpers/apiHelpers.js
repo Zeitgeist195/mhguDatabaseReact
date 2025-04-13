@@ -26,4 +26,6 @@ async function getHabitats(monsterId) {
   return habitats;
 }
 
-exports.getHabitats = getHabitats;
+module.exports = {
+  getHabitats: getHabitats
+};

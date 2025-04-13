@@ -71,7 +71,7 @@ export default function MonsterWeaknesses({ states }) {
   return (
     <>
       {Object.entries(states).map(([key, value]) => (
-        <List key={key} sx={{ width: "100%", maxWidth: 400, bgcolor: "secondary.main" }}>
+        <List key={key} sx={{ width: "100%", maxWidth: 400}}>
           <ListItemButton onClick={() => handleClick(key)}>
             <ListItemText primary={key} />
             {!open[key] ? <ExpandLess /> : <ExpandMore />}

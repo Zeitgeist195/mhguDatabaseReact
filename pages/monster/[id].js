@@ -1,4 +1,4 @@
-// pages/users/[username].js
+  // pages/users/[username].js
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
