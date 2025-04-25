@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import React from "react";
 import Head from "next/head";
-import theme from "./theme";
+import theme from "../styles/theme";
 import PersistentDrawerLeft from "components/Navigation/PersistentDrawerLeft";
 
 function Root({ Component, pageProps }) {
